@@ -70,7 +70,7 @@ export default function Home({ pokemon }: HomeProps) {
   );
 }
 
-export const getServerSideProps = async () => {
+export async function getStaticProps() {
   const url = 'https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json';
   const pokemon = await getData<Pokemon[]>(url);
 
