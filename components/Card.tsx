@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Pokemon } from '../types/pokemonTypes';
 
 type Props = {
@@ -19,10 +20,12 @@ export default function Card({ pokemon }: Props) {
         <h1 className='text-xl md:text-2xl'>{name}</h1>
         <h1>#{id}</h1>
       </div>
-      <img
+      <Image
         src={`https://jherr-pokemon.s3.us-west-1.amazonaws.com/${image}`}
         alt={`${name}`}
         className='w-60 h-60 object-cover'
+        width={200}
+        height={200}
       />
     </div>
   );
