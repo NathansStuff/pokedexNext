@@ -1,11 +1,14 @@
+// Next
 import Head from 'next/head';
-import Image from 'next/image';
+// Rect
 import { useState, ChangeEvent, useEffect } from 'react';
-
-import { Pokemon } from '../types/pokemonTypes';
-import { getData } from '../utils/helper';
+// Component
 import Card from '../components/Card';
-import Logo from '../assets/logo.png'
+import Navbar from '../components/Navbar';
+// Helper
+import { getData } from '../utils/helper';
+// Types
+import { Pokemon } from '../types/pokemonTypes';
 
 type HomeProps = {
   pokemon: Pokemon[];
@@ -47,12 +50,7 @@ export default function Home({ pokemon }: HomeProps) {
       </Head>
       <main>
         <div className='flex w-full items-center flex-col bg-blue-900 min-h-screen space-y-5 pt-5'>
-          <Image
-            alt='Pokemon Logo'
-            src={Logo}
-            width={300}
-            height={100}
-          />
+          <Navbar />
           <input
             className='border-none outline-none p-5 w-[350px] mb-10 h-10'
             placeholder='Search'
@@ -79,4 +77,4 @@ export async function getStaticProps() {
       pokemon,
     },
   };
-};
+}
