@@ -1,25 +1,15 @@
 interface Pokemon {
- id: number
- name: string;
- image: string;
-}
-
-export type IndividualPokemon = {
- id: number;
- name: string;
- sprites: {
-  front_default: string;
+  id: number
+  name: string;
+  image: string;
  }
- types: {
-    type: {
-     name: string;
-   }
-  }[]
- weight: number;
- height: number;
- abilities: {
-  ability: {
+
+ export type IndividualPokemon = {
+  name: string;
+  type: string[]
+  stats: {
    name: string;
-  }
- }[]
-}
+   value: number;
+  }[]
+  image: string;
+ }

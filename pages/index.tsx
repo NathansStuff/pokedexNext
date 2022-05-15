@@ -5,6 +5,7 @@ import { useState, ChangeEvent, useEffect } from 'react';
 // Component
 import Card from '../components/Card';
 import Navbar from '../components/Navbar';
+import Loading from '../components/Loading';
 // Helper
 import { getData } from '../utils/helper';
 // Types
@@ -26,10 +27,10 @@ export default function Home({ pokemon }: HomeProps) {
     setSearch(searchFieldString);
   };
 
+  // Filter pokemon results based on search
   useEffect(() => {
-    if (!pokemon) {
-      return;
-    }
+    if (!pokemon) return; // Same as react
+
     const newFilteredPokemon = pokemon!.filter(eachPokemon => {
       return eachPokemon.name.toLocaleLowerCase().includes(search);
     });
@@ -38,7 +39,7 @@ export default function Home({ pokemon }: HomeProps) {
 
   // Return loading state initially
   if (!pokemon) {
-    return <div className='w-screen h-screen bg-green-700'>Loading</div>;
+    return <Loading />;
   }
 
   return (
