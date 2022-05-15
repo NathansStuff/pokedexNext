@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 // Helpers
-import { baseUrl } from '../utils/helper';
+import { baseUrl, capitalizeFirstLetter } from '../utils/helper';
 //Types
 import { Pokemon } from '../types/pokemonTypes';
 
@@ -12,10 +12,6 @@ type Props = {
 
 export default function Card({ pokemon }: Props) {
   // Makes the first letter of a string capitalized
-  function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   const { id, image } = pokemon;
   const name = capitalizeFirstLetter(pokemon.name);
 
