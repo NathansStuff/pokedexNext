@@ -7,7 +7,7 @@ import Card from '../components/Card';
 import Navbar from '../components/Navbar';
 import Loading from '../components/Loading';
 // Helper
-import { getData } from '../utils/helper';
+import { baseUrl, getData } from '../utils/helper';
 // Types
 import { Pokemon } from '../types/pokemonTypes';
 
@@ -70,7 +70,7 @@ export default function Home({ pokemon }: HomeProps) {
 }
 
 export async function getStaticProps() {
-  const url = 'https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json';
+  const url = `${baseUrl}/index.json`;
   const pokemon = await getData<Pokemon[]>(url);
 
   return {

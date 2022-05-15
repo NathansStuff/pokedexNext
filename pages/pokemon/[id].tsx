@@ -1,26 +1,22 @@
 // Next
 import Image from 'next/image';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 // Components
 import Loading from '../../components/Loading';
 import Navbar from '../../components/Navbar';
 // Helperss
-import { getData } from '../../utils/helper';
+import { getData, baseUrl } from '../../utils/helper';
 // Types
 import { GetStaticProps } from 'next';
 import { IndividualPokemon, Pokemon } from '../../types/pokemonTypes';
 
 interface Props {
   pokemon: IndividualPokemon;
+  id: string;
 }
 
-export default function PokemonPage({ pokemon }: Props) {
-  const url = 'https://jherr-pokemon.s3.us-west-1.amazonaws.com';
-  const router = useRouter()
+export default function PokemonPage({ pokemon, id }: Props) {
   if (!pokemon) return <Loading />; // same as react
-
-  const id = router.pathname
 
   const { name, image, stats, type } = pokemon;
 
@@ -38,9 +34,11 @@ export default function PokemonPage({ pokemon }: Props) {
           </div>
           <div className='rounded p-5 flex space-x-10 m-5 justify-center'>
             <Image
-              src={`${url}/${image}`}
+              src={`${baseUrl}/${image}`}
               alt={`${name}`}
               className='w-60 h-60 object-cover'
+              width={200}
+              height={200}
             />
             <div>
               <h2 className='text-xl justify-center flex pb-5'>Stats</h2>
@@ -73,12 +71,12 @@ export default function PokemonPage({ pokemon }: Props) {
 }
 
 export const getStaticPaths = async () => {
-  const url = 'https://jherr-pokemon.s3.us-west-1.amazonaws.com/index.json';
+  const url = `${baseUrl}/index.json`;
   const pokemon = await getData<Pokemon[]>(url);
 
   const paths = pokemon.map(pokemon => ({
     params: {
-      pokemonId: pokemon.id.toString(),
+      id: pokemon.id.toString(),
     },
   }));
 
@@ -89,9 +87,8 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const url = 'https://jherr-pokemon.s3.us-west-1.amazonaws.com';
   const pokemon = await getData<IndividualPokemon>(
-    `${url}/pokemon/${params.pokemonId}.json`
+    `${baseUrl}/pokemon/${params.id}.json`
   );
   if (!pokemon) {
     return {
@@ -102,6 +99,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       pokemon,
+      id: params.id,
     },
     // revalidate: 60, //after 60 seconds, update old cached version
   };
